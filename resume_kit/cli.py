@@ -10,6 +10,7 @@ if __package__ in (None, ""):
 
 from resume_kit.corpus import load_corpus
 from resume_kit.errors import ResumeKitError
+from resume_kit.exports import export_resume_markdown
 from resume_kit.jd import analyze_jd
 from resume_kit.jsonio import emit_json, error_envelope, success_envelope
 from resume_kit.llm_guardrails import build_llm_prompt
@@ -112,6 +113,13 @@ def cmd_resume_generate(args):
     return 0
 
 
+def cmd_resume_export(args):
+    paths = export_resume_markdown(args.markdown_path, html_path=args.html, pdf_path=args.pdf, force=args.force)
+    for path in paths:
+        print(path)
+    return 0
+
+
 def cmd_gap_analyze(args):
     result = _build_match(args.jd_path, args.profile)
     path = _write_output(args.out, render_gap(result), force=args.force)
@@ -179,6 +187,12 @@ def build_parser():
     resume_generate.add_argument("--out", required=True)
     resume_generate.add_argument("--force", action="store_true")
     resume_generate.set_defaults(func=cmd_resume_generate)
+    resume_export = resume_sub.add_parser("export", help="export resume markdown to HTML/PDF")
+    resume_export.add_argument("markdown_path")
+    resume_export.add_argument("--html")
+    resume_export.add_argument("--pdf")
+    resume_export.add_argument("--force", action="store_true")
+    resume_export.set_defaults(func=cmd_resume_export)
 
     gap = sub.add_parser("gap", help="generate gap reports")
     gap_sub = gap.add_subparsers(dest="gap_command", required=True)
