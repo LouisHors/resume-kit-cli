@@ -22,8 +22,10 @@ def export_resume_markdown(markdown_path, html_path=None, pdf_path=None, force=F
     html_out = Path(html_path) if html_path is not None else None
     pdf_out = Path(pdf_path) if pdf_path is not None else None
     for target in [path for path in (html_out, pdf_out) if path is not None]:
-        if target.exists() and not force:
-            raise ResumeKitError("Output file already exists", {"path": str(target)})
+        if target.exists():
+            if not force:
+                raise ResumeKitError("Output file already exists", {"path": str(target)})
+            target.unlink()
 
     if html_out is not None:
         html_out.parent.mkdir(parents=True, exist_ok=True)
@@ -31,14 +33,10 @@ def export_resume_markdown(markdown_path, html_path=None, pdf_path=None, force=F
         written.append(html_out)
 
     if pdf_out is not None:
-        if html_out is not None:
-            html_source = html_out
+        with tempfile.TemporaryDirectory(prefix="resume-kit-export-") as tempdir:
+            html_source = Path(tempdir) / "resume.html"
+            html_source.write_text(html_text, encoding="utf-8")
             _write_pdf_from_html(html_source, pdf_out)
-        else:
-            with tempfile.TemporaryDirectory(prefix="resume-kit-export-") as tempdir:
-                html_source = Path(tempdir) / "resume.html"
-                html_source.write_text(html_text, encoding="utf-8")
-                _write_pdf_from_html(html_source, pdf_out)
         written.append(pdf_out)
 
     return written
