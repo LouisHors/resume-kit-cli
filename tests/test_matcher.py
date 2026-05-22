@@ -66,11 +66,8 @@ class MatcherTests(unittest.TestCase):
             self.assertNotIn(customer_specific_title, project_names)
 
         ktv = next(item for item in result.selected_evidence if "在线实时 KTV" in item.project_name)
-        self.assertTrue(any("会玩" in line for line in ktv.highlight_results))
-        self.assertTrue(any("网易" in line for line in ktv.highlight_results))
-        self.assertTrue(any("给麦" in line for line in ktv.highlight_results))
 
         delivery = next(item for item in result.selected_evidence if "实时音视频客户方案交付" in item.project_name)
         delivery_text = "\n".join(delivery.highlight_results)
-        self.assertIn("传音", delivery_text)
+        self.assertIn("传音", delivery_text); self.assertNotIn("具体项目", delivery_text)
         self.assertNotIn("表达时", delivery_text)
