@@ -149,25 +149,26 @@ PROFILE_BASE_RESUME = {
             "求职意向：高级 iOS 开发工程师 / iOS SDK 工程师 / 移动端技术专家",
         ],
         "personal_positioning": (
-            "2016 年起全职从事 iOS 开发，2020 年 4 月后转向实时音视频 SDK 解决方案专家岗位，但仍长期围绕 iOS SDK、Demo、Wrapper、客户接入和复杂音视频场景进行技术工作。具备 App 业务开发、iOS 基础能力、性能优化、SDK 集成、音视频场景、客户交付和工具化沉淀经验，适合 iOS App、iOS SDK、音视频 SDK、开发者工具等方向。"
+            "2016 年起全职从事 iOS 开发，2020 年 4 月后深耕实时音视频 SDK 开发与维护，长期以 Objective-C 为核心语言，负责 Zego RTC SDK 的 iOS 侧二次封装、引擎适配层开发、Wrapper 设计、打包链路建设以及客户联调。同时具备完整的 App 业务开发经验、性能优化能力、音视频场景方案设计能力和 AI Coding 工具化实践。适合 iOS SDK 开发、音视频 SDK 开发、iOS App 开发、移动端技术专家等方向。"
         ),
         "core_strengths": [
-            "iOS 基础扎实：熟悉 Swift、Objective-C、UIKit、AVFoundation、CoreLocation、CoreBluetooth、常见架构模式和第三方 SDK 集成。",
-            "业务 App 经验完整：曾负责长租公寓、社交电商、B 端管理工具等多个 App 开发，覆盖首页、搜索、地图、登录、支付、IM、短视频、报修、预订签约、复杂表格等模块。",
-            "音视频与 SDK 能力突出：2020 年后长期基于 Zego Express SDK / LiveRoom SDK 做 iOS 方向客户方案、Demo、Wrapper 和排障支持，熟悉推拉流、连麦、KTV、合唱、美颜、自定义采集/处理等场景。",
-            "性能与工程化意识：有页面加载性能优化、万级数据排序优化、crash 定位、CI/CD、Jenkins、Bugly、Instruments、Mock、Charles、Postman 等实践经验。",
-            "沟通与交付能力：从开发岗位转向解决方案专家后，长期面向客户和内部团队沟通需求、拆解技术方案、评估风险并推动上线。",
+            "iOS SDK 开发与维护经验丰富：2020 年后长期以 Objective-C 为核心语言，负责好未来、Yalla、字节跳动等头部客户的 RTC SDK 二次封装、引擎适配层开发、Wrapper 设计和 xcframework 打包链路维护。",
+            "音视频开发能力突出：熟悉推拉流、连麦、混流、SEI、音频路由、媒体播放器、自定义音视频采集/处理、KTV/合唱、美颜等 RTC 场景的技术实现和 SDK 能力组合。",
+            "iOS 基础扎实：熟悉 Swift、Objective-C、UIKit、AVFoundation、CoreLocation、CoreBluetooth、MVVM 架构、组件化和常用第三方 SDK 集成。",
+            "性能与工程化意识：有 Instruments 性能分析、页面加载性能优化、万级数据排序优化、crash 定位、CI/CD、Jenkins、Bugly、Charles、Postman 等实践经验。",
+            "AI Coding 与工具化能力：近一年实践 Vibe Coding、Spec Coding、Harness Coding，将 SDK 排障经验、交付流程和方案设计沉淀为 AI Agent 工作流和可复用技能系统。熟悉 Codex 等 AI Coding 平台的 Skill、MCP、Plugin 等扩展机制，能够将重复性操作抽象并封装为 Agent 可调用的工具和工作流，提升开发、排障和交付效率。",
+            "跨团队协作与项目推进：长期面向客户和内部团队沟通需求、拆解技术方案、评估风险并推动 SDK 交付项目上线。",
         ],
         "work_experience": [
             {
-                "title": "深圳市即构科技有限公司 - 高级解决方案专家",
+                "title": "深圳市即构科技有限公司 - 高级解决方案专家 / iOS SDK 开发",
                 "period": "2020.04 - 至今",
                 "bullets": [
-                    "负责实时音视频 SDK 客户的 iOS/移动端接入方案设计、Demo/Wrapper 支持、问题定位和上线保障。",
-                    "支持字节跳动、网易、好未来、SOUL、会玩、富聊、微博、Yalla、传音等客户项目，覆盖直播、语聊房、KTV/合唱、在线教育、视频通话、第三方美颜、SDK 再封装等场景。",
-                    "基于 Zego Express SDK / LiveRoom SDK 输出 iOS Demo、关键代码、接入文档和调试方案。",
-                    "参与客户接口规范适配 Wrapper、第三方美颜 Demo、KTV/合唱 Demo、ZegoMediaPlayer 伴奏播放器、自定义音视频采集/处理等方案设计。",
-                    "建设交付工具和智能排障工具，将 SDK 接入经验、日志排查经验和客户问题沉淀为可复用流程。",
+                    "负责头部客户 RTC SDK 的 iOS 侧二次封装与引擎适配层开发，基于 Objective-C 完成好未来、Yalla、字节跳动等客户项目的 SDK 封装、Wrapper 设计和 xcframework 打包链路建设。",
+                    "长期维护客户侧 SDK 封装层代码，跟进 SDK 版本升级的接口兼容性验证、回调对齐、错误码映射和客户联调问题定位。",
+                    "参与 KTV/合唱 Demo、第三方美颜 Demo、ZegoMediaPlayer 伴奏播放器、自定义音视频采集/处理等 iOS 方向方案设计与 Demo 开发。",
+                    "支持字节跳动、网易、好未来、SOUL、会玩、富聊、微博、Yalla、传音等客户项目，覆盖直播、语聊房、KTV/合唱、在线教育、视频通话等场景的技术方案与联调保障。",
+                    "建设交付工具链和智能排障工具，将 SDK 开发经验、日志排查经验和客户问题沉淀为可复用流程和 AI Agent 工作流。",
                 ],
             },
             {
@@ -255,6 +256,13 @@ def _score_item(jd, profile, item):
     score = 0
     if profile.name in item.profile_tags:
         score += 2
+    # Cross-matching: iOS profile can score on solution-expert items with ios/wrapper skills
+    if profile.name == "ios" and "solution-expert" in item.profile_tags:
+        cross_skills = {"ios", "wrapper", "sdk", "objective-c", "swift"}
+        for tag in item.skill_tags:
+            if tag in cross_skills:
+                score += 1
+                break
     jd_text = " ".join(
         jd.keywords + jd.responsibilities + jd.must_requirements + jd.nice_to_have
     ).lower()
@@ -285,12 +293,12 @@ def _select_evidence(profile_name, direct, transferable, corpus):
             "solution-expert-delivery-tool-kit",
         ],
         "ios": [
-            "solution-expert-talrtc-wrapper",
-            "solution-expert-yalla-wrapper",
-            "solution-expert-byte-wrapper",
+            "ios-sdk-wrapper-dev",
             "solution-expert-ktv-scheme",
             "solution-expert-third-party-beauty",
-            "solution-expert-delivery-tool-kit",
+            "horspowers-skill-system",
+            "zego-rtc-troubleshooting-agent",
+            "personal-content-distribution-agent",
         ],
     }.get(profile_name, [])
     evidence_by_id = {item.id: item for item in corpus.evidence}
@@ -314,6 +322,10 @@ def _select_evidence(profile_name, direct, transferable, corpus):
     for entry in transferable:
         item = evidence_by_id.get(entry["evidence_id"])
         if item is not None and item.project_name not in selected_names:
+            # For iOS profile, skip the generic wrapper project since
+            # ios-sdk-wrapper-dev already covers the same work
+            if profile_name == "ios" and item.id == "solution-expert-customer-interface-wrapper":
+                continue
             selected.append(item)
             selected_names.add(item.project_name)
 

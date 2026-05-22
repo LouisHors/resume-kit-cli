@@ -21,6 +21,14 @@ KEYWORDS = [
     "解决方案",
     "客户",
     "交付",
+    "TCP/IP",
+    "HTTP",
+    "DNS",
+    "RTMP",
+    "HLS",
+    "WebRTC",
+    "Linux",
+    "音视频",
 ]
 
 
@@ -28,8 +36,8 @@ def analyze_jd(text):
     title = _extract_title(text)
     responsibilities = _extract_numbered_after(
         text,
-        headers=["岗位职责", "职责"],
-        stop_headers=["岗位要求", "任职要求", "必须", "加分项", "优先"],
+        headers=["岗位职责", "职责", "职位描述"],
+        stop_headers=["岗位要求", "任职要求", "必须", "加分项", "优先", "职位要求"],
     )
     must = _extract_numbered_after(
         text,
@@ -39,7 +47,7 @@ def analyze_jd(text):
     if not must:
         must = _extract_numbered_after(
             text,
-            headers=["岗位要求", "任职要求"],
+            headers=["岗位要求", "任职要求", "职位要求"],
             stop_headers=["加分项", "优先"],
         )
     nice = _extract_numbered_after(

@@ -114,17 +114,17 @@ def render_resume(result):
         "## 技术能力",
         "",
     ])
-    capability_lines = []
-    seen = set()
+    # Collect first 2 capability_phrasing from selected evidence,
+    # then append 2 fixed capability sentences.
+    ev_capabilities = []
     for item in result.selected_evidence:
-        for sentence in item.capability_phrasing:
-            if sentence not in seen:
-                capability_lines.append(sentence)
-                seen.add(sentence)
-    if not capability_lines:
-        capability_lines = [
-            "能够基于 AI Agent 工作流实现工具调用、上下文管理和验证闭环。",
-        ]
+        for s in item.capability_phrasing:
+            if s not in ev_capabilities:
+                ev_capabilities.append(s)
+    capability_lines = ev_capabilities[:2] + [
+        "能够基于 Objective-C、Swift 完成业务场景开发、性能调优等各类开发工作。",
+        "能够基于 Vibe Coding、Spec Coding、Harness Coding 以及 AI Agent 完成各类开发工作。",
+    ]
     for sentence in capability_lines:
         lines.append(f"- {sentence}")
     lines.append("")

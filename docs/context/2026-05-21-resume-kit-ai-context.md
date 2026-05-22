@@ -24,7 +24,7 @@ updated: 2026-05-21
 你当前已经沉淀了足够多的三类资料：
 
 - 事实基线：哪些能写、哪些不能写、客户怎么披露、个人/工作产出怎么分开
-- 素材地图：代码仓库、客户方案、技术文章、AI 手册
+- 素材地图：代码仓库总图、客户方案、技术文章、AI 手册
 - 基础简历：AI Agent、解决方案专家、iOS 三份初稿
 
 手工改简历的痛点是：
@@ -156,6 +156,7 @@ resume-kit/
 实现前应该先确认这些文件可读：
 
 - `wiki/guides/resume-fact-baseline.md`
+- `wiki/guides/repository-output-map-2020-2026.md`
 - `wiki/guides/code-project-material-map.md`
 - `wiki/guides/customer-solution-material-map.md`
 - `wiki/guides/technical-article-material-map.md`

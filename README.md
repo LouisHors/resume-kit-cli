@@ -54,14 +54,3 @@ make install-local
 ```
 
 This installs `resume-kit` into `~/.local/bin`.
-
-## Source Files
-
-- `<source-root>/wiki/guides/resume-fact-baseline.md`
-- `<source-root>/wiki/guides/code-project-material-map.md`
-- `<source-root>/wiki/guides/customer-solution-material-map.md`
-- `<source-root>/wiki/guides/technical-article-material-map.md`
-- `<source-root>/wiki/guides/ai-agent-rag-interview-handbook.md`
-- `<source-root>/resumes/liuhao-ai-agent.md`
-- `<source-root>/resumes/liuhao-solution-expert.md`
-- `<source-root>/resumes/liuhao-ios.md`

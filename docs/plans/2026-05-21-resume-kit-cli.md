@@ -17,7 +17,7 @@
 
 第一版采用“规则优先 + LLM 辅助”的离线架构：CLI 先用确定性规则解析 JD、读取本地素材、筛选证据、生成简历骨架和差异分析，再生成一份严格约束的 LLM prompt/context 供 Codex 或其他 LLM 做语言润色。LLM 不直接决定事实，不允许新增证据外的经历、客户细节或量化指标。
 
-CLI 放在当前 wiki 仓库的 `/Users/zego/my-code-wiki/tools/resume_kit/`，通过 `make install-local` 安装为 `~/.local/bin/resume-kit`，可从任意目录运行。
+CLI 放在当前 wiki 仓库的 `<source-root>/tools/resume_kit/`，通过 `make install-local` 安装为 `~/.local/bin/resume-kit`，可从任意目录运行。
 
 ## 技术栈
 
@@ -65,7 +65,7 @@ resume-kit package jd.md --profile ai-agent --out output/
 
 ### 事实与披露约束
 
-所有生成逻辑必须遵守 `/Users/zego/my-code-wiki/wiki/guides/resume-fact-baseline.md`：
+所有生成逻辑必须遵守 `<source-root>/wiki/guides/resume-fact-baseline.md`：
 
 - 客户名可以公开，方案细节不公开。
 - 客户项目只写“客户名 + 某场景 + 我的责任范围”。
@@ -91,14 +91,15 @@ CLI 不让 LLM 自由发挥，而是生成受控 prompt。prompt 必须包含：
 第一版固定读取这些文件：
 
 ```text
-/Users/zego/my-code-wiki/wiki/guides/resume-fact-baseline.md
-/Users/zego/my-code-wiki/wiki/guides/code-project-material-map.md
-/Users/zego/my-code-wiki/wiki/guides/customer-solution-material-map.md
-/Users/zego/my-code-wiki/wiki/guides/technical-article-material-map.md
-/Users/zego/my-code-wiki/wiki/guides/ai-agent-rag-interview-handbook.md
-/Users/zego/my-code-wiki/resumes/liuhao-ai-agent.md
-/Users/zego/my-code-wiki/resumes/liuhao-solution-expert.md
-/Users/zego/my-code-wiki/resumes/liuhao-ios.md
+<source-root>/wiki/guides/resume-fact-baseline.md
+<source-root>/wiki/guides/repository-output-map-2020-2026.md
+<source-root>/wiki/guides/code-project-material-map.md
+<source-root>/wiki/guides/customer-solution-material-map.md
+<source-root>/wiki/guides/technical-article-material-map.md
+<source-root>/wiki/guides/ai-agent-rag-interview-handbook.md
+<source-root>/resumes/liuhao-ai-agent.md
+<source-root>/resumes/liuhao-solution-expert.md
+<source-root>/resumes/liuhao-ios.md
 ```
 
 素材抽象为 `EvidenceItem`：
@@ -173,7 +174,7 @@ class MatchResult:
     "code": "missing_source",
     "message": "Required source file does not exist",
     "detail": {
-      "path": "/Users/zego/my-code-wiki/wiki/guides/resume-fact-baseline.md"
+      "path": "<source-root>/wiki/guides/resume-fact-baseline.md"
     }
   }
 }
@@ -198,17 +199,17 @@ output/
 
 **Files:**
 
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/__init__.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/__main__.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/Makefile`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/README.md`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/__init__.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_cli_smoke.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/__init__.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/__main__.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/cli.py`
+- Create: `<source-root>/tools/resume_kit/Makefile`
+- Create: `<source-root>/tools/resume_kit/README.md`
+- Create: `<source-root>/tools/resume_kit/tests/__init__.py`
+- Create: `<source-root>/tools/resume_kit/tests/test_cli_smoke.py`
 
 **Step 1: Write the smoke test**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_cli_smoke.py`:
+Create `<source-root>/tools/resume_kit/tests/test_cli_smoke.py`:
 
 ```python
 import json
@@ -256,7 +257,7 @@ Expected: FAIL because `tools/resume_kit/resume_kit/cli.py` does not exist.
 
 **Step 3: Create minimal CLI**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py` with:
+Create `<source-root>/tools/resume_kit/resume_kit/cli.py` with:
 
 ```python
 #!/usr/bin/env python3
@@ -324,7 +325,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/__main__.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/__main__.py`:
 
 ```python
 from .cli import main
@@ -332,11 +333,11 @@ from .cli import main
 raise SystemExit(main())
 ```
 
-Create empty `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/__init__.py`.
+Create empty `<source-root>/tools/resume_kit/resume_kit/__init__.py`.
 
-Create empty `/Users/zego/my-code-wiki/tools/resume_kit/tests/__init__.py`.
+Create empty `<source-root>/tools/resume_kit/tests/__init__.py`.
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/Makefile`:
+Create `<source-root>/tools/resume_kit/Makefile`:
 
 ```makefile
 PYTHON ?= python3
@@ -355,7 +356,7 @@ install-local:
 	@echo "Installed $(PREFIX)/resume-kit"
 ```
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/README.md` with command list, JSON envelope policy, install command, and source paths.
+Create `<source-root>/tools/resume_kit/README.md` with command list, JSON envelope policy, install command, and source paths.
 
 **Step 4: Run test to verify it passes**
 
@@ -380,15 +381,15 @@ git commit -m "feat: scaffold resume-kit cli"
 
 **Files:**
 
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/paths.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/jsonio.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/errors.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_jsonio.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/paths.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/jsonio.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/errors.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/cli.py`
+- Create: `<source-root>/tools/resume_kit/tests/test_jsonio.py`
 
 **Step 1: Write the failing tests**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_jsonio.py`:
+Create `<source-root>/tools/resume_kit/tests/test_jsonio.py`:
 
 ```python
 import json
@@ -418,7 +419,7 @@ class JsonEnvelopeTests(unittest.TestCase):
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest tests.test_jsonio -v
 ```
 
@@ -426,7 +427,7 @@ Expected: FAIL because `resume_kit.jsonio` does not exist.
 
 **Step 3: Implement support modules**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/jsonio.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/jsonio.py`:
 
 ```python
 import json
@@ -454,7 +455,7 @@ def emit_json(payload, stream=None):
     target.write("\n")
 ```
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/errors.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/errors.py`:
 
 ```python
 class ResumeKitError(Exception):
@@ -470,7 +471,7 @@ class MissingSourceError(ResumeKitError):
     code = "missing_source"
 ```
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/paths.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/paths.py`:
 
 ```python
 from pathlib import Path
@@ -480,6 +481,7 @@ REPO_ROOT = Path(__file__).resolve().parents[3]
 
 SOURCE_PATHS = {
     "fact_baseline": REPO_ROOT / "wiki/guides/resume-fact-baseline.md",
+    "repo_map": REPO_ROOT / "wiki/guides/repository-output-map-2020-2026.md",
     "code_projects": REPO_ROOT / "wiki/guides/code-project-material-map.md",
     "customer_solutions": REPO_ROOT / "wiki/guides/customer-solution-material-map.md",
     "technical_articles": REPO_ROOT / "wiki/guides/technical-article-material-map.md",
@@ -497,7 +499,7 @@ Modify `cli.py` to import `SOURCE_PATHS`, `success_envelope`, `emit_json`, `Resu
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -516,16 +518,16 @@ git commit -m "feat: add resume-kit json and path helpers"
 
 **Files:**
 
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/markdown.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/models.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/corpus.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_markdown.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_corpus.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/markdown.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/models.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/corpus.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/cli.py`
+- Create: `<source-root>/tools/resume_kit/tests/test_markdown.py`
+- Create: `<source-root>/tools/resume_kit/tests/test_corpus.py`
 
 **Step 1: Write markdown parser tests**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_markdown.py`:
+Create `<source-root>/tools/resume_kit/tests/test_markdown.py`:
 
 ```python
 import unittest
@@ -547,7 +549,7 @@ class MarkdownTests(unittest.TestCase):
 
 **Step 2: Write corpus tests**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_corpus.py`:
+Create `<source-root>/tools/resume_kit/tests/test_corpus.py`:
 
 ```python
 import unittest
@@ -573,7 +575,7 @@ class CorpusTests(unittest.TestCase):
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest tests.test_markdown tests.test_corpus -v
 ```
 
@@ -581,7 +583,7 @@ Expected: FAIL because modules do not exist.
 
 **Step 4: Implement data models**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/models.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/models.py`:
 
 ```python
 from dataclasses import dataclass, field
@@ -617,7 +619,7 @@ class Corpus:
 
 **Step 5: Implement markdown helpers**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/markdown.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/markdown.py`:
 
 ```python
 import re
@@ -655,7 +657,7 @@ def extract_headings(text):
 
 **Step 6: Implement corpus loader**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/corpus.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/corpus.py`:
 
 ```python
 from .models import Corpus, EvidenceItem, SourceDoc
@@ -721,7 +723,7 @@ Modify `cli.py`:
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -740,13 +742,13 @@ git commit -m "feat: load resume evidence corpus"
 
 **Files:**
 
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/profiles.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_profiles.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/profiles.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/cli.py`
+- Create: `<source-root>/tools/resume_kit/tests/test_profiles.py`
 
 **Step 1: Write failing tests**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_profiles.py`:
+Create `<source-root>/tools/resume_kit/tests/test_profiles.py`:
 
 ```python
 import unittest
@@ -771,7 +773,7 @@ class ProfileTests(unittest.TestCase):
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest tests.test_profiles -v
 ```
 
@@ -779,7 +781,7 @@ Expected: FAIL because `profiles.py` does not exist.
 
 **Step 3: Implement profiles**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/profiles.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/profiles.py`:
 
 ```python
 from dataclasses import dataclass
@@ -875,7 +877,7 @@ Modify `cli.py`:
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -894,15 +896,15 @@ git commit -m "feat: add resume-kit profiles"
 
 **Files:**
 
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/jd.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/models.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/fixtures/jd_ai_agent.md`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_jd.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/jd.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/models.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/cli.py`
+- Create: `<source-root>/tools/resume_kit/tests/fixtures/jd_ai_agent.md`
+- Create: `<source-root>/tools/resume_kit/tests/test_jd.py`
 
 **Step 1: Create fixture**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/fixtures/jd_ai_agent.md`:
+Create `<source-root>/tools/resume_kit/tests/fixtures/jd_ai_agent.md`:
 
 ```markdown
 # AI Agent 开发工程师
@@ -926,7 +928,7 @@ Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/fixtures/jd_ai_agent.md`
 
 **Step 2: Write failing tests**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_jd.py`:
+Create `<source-root>/tools/resume_kit/tests/test_jd.py`:
 
 ```python
 import unittest
@@ -958,7 +960,7 @@ class JDTests(unittest.TestCase):
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest tests.test_jd -v
 ```
 
@@ -966,7 +968,7 @@ Expected: FAIL because `jd.py` does not exist.
 
 **Step 4: Add `JDAnalysis` model**
 
-Modify `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/models.py`:
+Modify `<source-root>/tools/resume_kit/resume_kit/models.py`:
 
 ```python
 @dataclass(frozen=True)
@@ -982,7 +984,7 @@ class JDAnalysis:
 
 **Step 5: Implement parser**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/jd.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/jd.py`:
 
 ```python
 import re
@@ -1094,7 +1096,7 @@ Modify `cli.py`:
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -1113,14 +1115,14 @@ git commit -m "feat: analyze job descriptions"
 
 **Files:**
 
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/matcher.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/models.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_matcher.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/matcher.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/models.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/cli.py`
+- Create: `<source-root>/tools/resume_kit/tests/test_matcher.py`
 
 **Step 1: Write failing tests**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_matcher.py`:
+Create `<source-root>/tools/resume_kit/tests/test_matcher.py`:
 
 ```python
 import unittest
@@ -1153,7 +1155,7 @@ class MatcherTests(unittest.TestCase):
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest tests.test_matcher -v
 ```
 
@@ -1161,7 +1163,7 @@ Expected: FAIL because `matcher.py` does not exist.
 
 **Step 3: Add `MatchResult` model**
 
-Modify `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/models.py`:
+Modify `<source-root>/tools/resume_kit/resume_kit/models.py`:
 
 ```python
 @dataclass(frozen=True)
@@ -1176,7 +1178,7 @@ class MatchResult:
 
 **Step 4: Implement matcher**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/matcher.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/matcher.py`:
 
 ```python
 from .models import MatchResult
@@ -1252,7 +1254,7 @@ Modify `cli.py`:
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -1271,13 +1273,13 @@ git commit -m "feat: match jd against resume evidence"
 
 **Files:**
 
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/renderers.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_renderers.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/renderers.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/cli.py`
+- Create: `<source-root>/tools/resume_kit/tests/test_renderers.py`
 
 **Step 1: Write failing tests**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_renderers.py`:
+Create `<source-root>/tools/resume_kit/tests/test_renderers.py`:
 
 ```python
 import unittest
@@ -1314,7 +1316,7 @@ class RendererTests(unittest.TestCase):
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest tests.test_renderers -v
 ```
 
@@ -1322,7 +1324,7 @@ Expected: FAIL because `renderers.py` does not exist.
 
 **Step 3: Implement renderers**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/renderers.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/renderers.py`:
 
 ```python
 def render_resume(result):
@@ -1411,7 +1413,7 @@ Modify `cli.py`:
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -1430,14 +1432,14 @@ git commit -m "feat: render targeted resume and gap report"
 
 **Files:**
 
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/llm_guardrails.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/renderers.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_llm_guardrails.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/llm_guardrails.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/renderers.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/cli.py`
+- Create: `<source-root>/tools/resume_kit/tests/test_llm_guardrails.py`
 
 **Step 1: Write failing test**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_llm_guardrails.py`:
+Create `<source-root>/tools/resume_kit/tests/test_llm_guardrails.py`:
 
 ```python
 import unittest
@@ -1470,7 +1472,7 @@ class LLMGuardrailTests(unittest.TestCase):
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest tests.test_llm_guardrails -v
 ```
 
@@ -1478,7 +1480,7 @@ Expected: FAIL because `llm_guardrails.py` does not exist.
 
 **Step 3: Implement prompt builder**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/llm_guardrails.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/llm_guardrails.py`:
 
 ```python
 import json
@@ -1553,7 +1555,7 @@ Modify `cli.py`:
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -1572,13 +1574,13 @@ git commit -m "feat: build constrained resume llm prompt"
 
 **Files:**
 
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/package.py`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/cli.py`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_package.py`
+- Create: `<source-root>/tools/resume_kit/resume_kit/package.py`
+- Modify: `<source-root>/tools/resume_kit/resume_kit/cli.py`
+- Create: `<source-root>/tools/resume_kit/tests/test_package.py`
 
 **Step 1: Write failing test**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_package.py`:
+Create `<source-root>/tools/resume_kit/tests/test_package.py`:
 
 ```python
 import tempfile
@@ -1611,7 +1613,7 @@ class PackageTests(unittest.TestCase):
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest tests.test_package -v
 ```
 
@@ -1619,7 +1621,7 @@ Expected: FAIL because `package.py` does not exist.
 
 **Step 3: Implement package generator**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/resume_kit/package.py`:
+Create `<source-root>/tools/resume_kit/resume_kit/package.py`:
 
 ```python
 import json
@@ -1670,7 +1672,7 @@ Modify `cli.py`:
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -1689,13 +1691,13 @@ git commit -m "feat: package resume outputs for jd"
 
 **Files:**
 
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/README.md`
-- Modify: `/Users/zego/my-code-wiki/tools/resume_kit/Makefile`
-- Create: `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_install_contract.py`
+- Modify: `<source-root>/tools/resume_kit/README.md`
+- Modify: `<source-root>/tools/resume_kit/Makefile`
+- Create: `<source-root>/tools/resume_kit/tests/test_install_contract.py`
 
 **Step 1: Add install contract test**
 
-Create `/Users/zego/my-code-wiki/tools/resume_kit/tests/test_install_contract.py`:
+Create `<source-root>/tools/resume_kit/tests/test_install_contract.py`:
 
 ```python
 import os
@@ -1720,7 +1722,7 @@ class InstallContractTests(unittest.TestCase):
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -1731,11 +1733,11 @@ Expected: PASS.
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 make install-local
 ```
 
-Expected: prints `Installed /Users/zego/.local/bin/resume-kit`.
+Expected: prints `Installed <user-local-bin>/resume-kit`.
 
 **Step 4: Smoke test from another directory**
 
@@ -1750,7 +1752,7 @@ resume-kit doctor --json
 
 Expected:
 
-- `command -v resume-kit` prints `/Users/zego/.local/bin/resume-kit`
+- `command -v resume-kit` prints `<user-local-bin>/resume-kit`
 - `resume-kit --help` includes `doctor`, `jd`, `match`, `resume`, `gap`, `prompt`, `package`
 - `resume-kit doctor --json` returns `"ok": true` and all source files exist
 
@@ -1768,15 +1770,15 @@ git commit -m "docs: document resume-kit install and usage"
 **Files:**
 
 - No new files required
-- Generated output path for manual verification: `/Users/zego/my-code-wiki/output/resume-kit-fixture/`
-- Sync target: `/Users/zego/Documents/Document/docs/plans/2026-05-21-resume-kit-cli.md`
+- Generated output path for manual verification: `<source-root>/output/resume-kit-fixture/`
+- Sync target: `<documents-root>/docs/plans/2026-05-21-resume-kit-cli.md`
 
 **Step 1: Run all tests**
 
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki/tools/resume_kit
+cd <source-root>/tools/resume_kit
 PYTHONPATH=. python3 -m unittest discover tests -v
 ```
 
@@ -1787,18 +1789,18 @@ Expected: all tests PASS.
 Run:
 
 ```bash
-cd /Users/zego/my-code-wiki
+cd <source-root>
 resume-kit package tools/resume_kit/tests/fixtures/jd_ai_agent.md --profile ai-agent --out output/resume-kit-fixture --force
 ```
 
 Expected generated files:
 
 ```text
-/Users/zego/my-code-wiki/output/resume-kit-fixture/resume.md
-/Users/zego/my-code-wiki/output/resume-kit-fixture/gap.md
-/Users/zego/my-code-wiki/output/resume-kit-fixture/llm-prompt.md
-/Users/zego/my-code-wiki/output/resume-kit-fixture/match.json
-/Users/zego/my-code-wiki/output/resume-kit-fixture/evidence-map.md
+<source-root>/output/resume-kit-fixture/resume.md
+<source-root>/output/resume-kit-fixture/gap.md
+<source-root>/output/resume-kit-fixture/llm-prompt.md
+<source-root>/output/resume-kit-fixture/match.json
+<source-root>/output/resume-kit-fixture/evidence-map.md
 ```
 
 **Step 3: Verify policy-sensitive content**
@@ -1837,8 +1839,8 @@ git commit -m "test: add resume-kit end-to-end fixture"
 Run:
 
 ```bash
-mkdir -p /Users/zego/Documents/Document/docs/plans
-cp /Users/zego/my-code-wiki/docs/plans/2026-05-21-resume-kit-cli.md /Users/zego/Documents/Document/docs/plans/2026-05-21-resume-kit-cli.md
+mkdir -p <documents-root>/docs/plans
+cp <source-root>/docs/plans/2026-05-21-resume-kit-cli.md <documents-root>/docs/plans/2026-05-21-resume-kit-cli.md
 ```
 
 Expected: the implementation plan is available from the iCloud-synced Documents mirror.

@@ -37,6 +37,29 @@ def build_llm_prompt(result):
 {json.dumps(evidence_payload, ensure_ascii=False, indent=2)}
 ```
 
+## 项目格式要求
+
+每个项目必须按照以下顺序输出：
+
+1. 角色
+2. 关键词
+3. 项目定位
+4. 主要工作
+5. 可突出成果
+
+技术能力必须写成“能够基于 xxxx 实现 yyyy”的句式，不要写平铺的技能关键词清单。
+
+## 简历结构要求
+
+最终 `resume.md` 必须保留这些章节：
+
+- 个人定位
+- 核心优势
+- 工作经历
+- 项目展示
+- 技术能力
+- 教育经历
+
 ## Gap / 风险点
 
 ```json

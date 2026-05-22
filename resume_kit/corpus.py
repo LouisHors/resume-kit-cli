@@ -199,7 +199,40 @@ def load_corpus():
             ],
             raw_excerpt=_excerpt(solution_text, "第三方美颜 SDK 集成方案"),
         ),
+        
+                # --- iOS SDK 开发与维护项目（合并） ---
         _evidence(
+            id="ios-sdk-wrapper-dev",
+            source_path=source_by_key["fact_baseline"].path,
+            source_section="解决方案 / iOS 核心代码产出",
+            profile_tags=["ios", "solution-expert"],
+            skill_tags=["ios", "objective-c", "sdk", "rtc", "wrapper", "audio-routing"],
+            project_name="RTC SDK 二次封装与引擎适配层开发（iOS）",
+            ownership="work",
+            disclosure_level="public-work-summary",
+            summary="面向好未来、Yalla、字节跳动等头部客户，基于 Objective-C 完成 Zego RTC SDK 的 iOS 侧二次封装、引擎适配层开发和 Wrapper 设计，并负责长期维护与 xcframework 打包链路。",
+            resume_phrasing=[
+                "面向好未来、Yalla、字节跳动等头部客户，基于 Objective-C 完成 Zego RTC SDK 的 iOS 侧二次封装、引擎适配层开发和 Wrapper 设计，并负责长期维护。",
+            ],
+            role="iOS SDK 开发 / 引擎适配层设计 / 长期维护",
+            keywords=["Objective-C", "RTC", "SDK 封装", "Wrapper", "引擎适配层", "xcframework", "音频路由"],
+            project_positioning="面向好未来、Yalla、字节跳动等头部客户的 RTC SDK iOS 侧二次封装与引擎适配层开发项目，完成接口对齐、差异屏蔽、错误码统一，并负责 xcframework 打包链路和长期维护。",
+            main_work=[
+                "基于 Objective-C 实现 RTC 引擎适配层和 SDK Wrapper 封装，覆盖房间管理、推拉流控制、跨频道转发、媒体设备控制、回调分发和异常链路处理。",
+                "处理音频会话 hook、volume type、DeviceMode 透传、MediaPlayer 参数映射等差异化能力，以及回调与超时逻辑对齐、错误码统一映射、默认参数收敛等 SDK 差异屏蔽工作。",
+                "负责 xcframework 打包链路建设与维护，长期跟进 SDK 版本升级的接口兼容性验证和客户联调问题定位。",
+            ],
+            highlight_results=[
+                "完成好未来培优中台 iOS 侧 RTC 引擎适配层开发与交付。",
+                "完成 Yalla iOS 侧 LiveRoom SDK 兼容层开发与交付，覆盖音频路由、设备模式和播放器参数等关键差异化能力。",
+                "完成字节跳动 iOS 侧 LiveRoom SDK Wrapper 开发与交付，覆盖房间、推拉流、跨频道转发和错误码等核心能力。",
+            ],
+            capability_phrasing=[
+                "能够基于 Objective-C 完成 RTC SDK 的 iOS 侧二次封装、引擎适配层开发、Wrapper 设计和 xcframework 打包链路维护。",
+            ],
+            raw_excerpt=_excerpt(fact_text, "好未来 RTC 中台接口适配"),
+        ),
+_evidence(
             id="zego-delivery-tool-kit",
             source_path=source_by_key["fact_baseline"].path,
             source_section="交付工具链与 AI coding/harness 产物",

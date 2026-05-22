@@ -25,7 +25,7 @@ def cmd_doctor(args):
     sources = source_status()
     data = {
         "project_root": str(PROJECT_ROOT),
-        "source_root": "/Users/zego/my-code-wiki",
+        "source_root": str(DEFAULT_SOURCE_ROOT) if DEFAULT_SOURCE_ROOT else None,
         "sources": sources,
     }
     warnings = [
