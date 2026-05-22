@@ -21,3 +21,6 @@ class LLMGuardrailTests(unittest.TestCase):
         self.assertIn("内容采集清洗与多平台分发 Agent 工作流", prompt)
         self.assertIn("Go", prompt)
         self.assertIn("gap", prompt.lower())
+        self.assertIn("角色：", prompt)
+        self.assertIn("关键词：", prompt)
+        self.assertIn("能够基于", prompt)

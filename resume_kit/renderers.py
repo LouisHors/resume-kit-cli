@@ -43,15 +43,27 @@ def formalize_publish_resume_text(text):
 
 
 def _normalize_resume_title(title):
+    title = _collapse_duplicate_name_prefix(title)
     for suffix in ("定制简历草稿", "定制简历初稿", "简历草稿", "简历初稿"):
         if title.endswith(suffix):
-            return f"{title[:-len(suffix)]}简历"
-    return title
+            title = f"{title[:-len(suffix)]}简历"
+            break
+    return _collapse_duplicate_name_prefix(title)
+
+
+def _collapse_duplicate_name_prefix(title):
+    parts = title.split(" - ")
+    while len(parts) >= 3 and parts[0] == parts[1]:
+        parts.pop(1)
+    return " - ".join(parts)
 
 
 def render_resume(result):
+    title = result.base_title or "简历"
+    if not title.startswith("刘豪 - "):
+        title = f"刘豪 - {title}"
     lines = [
-        "# 刘豪 - AI Agent / AI Coding 方向简历初稿",
+        f"# {title}",
         "",
         *result.base_header_lines,
         "",

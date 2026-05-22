@@ -39,3 +39,21 @@ class ExportTests(unittest.TestCase):
             self.assertNotIn("不应导出", html)
             self.assertIn("刘豪 - AI Agent / AI Coding 方向简历", html)
             self.assertNotIn("刘豪 - AI Agent / AI Coding 方向简历初稿", html)
+
+    def test_export_html_formalizes_prefixed_solution_title(self):
+        with tempfile.TemporaryDirectory() as tempdir:
+            tempdir = Path(tempdir)
+            source = tempdir / "resume.md"
+            target = tempdir / "resume.html"
+            source.write_text(
+                "# 刘豪 - 刘豪 - 音视频技术支持专家简历初稿\n\n## 教育经历\n\n山东政法学院\n",
+                encoding="utf-8",
+            )
+
+            export_resume_markdown(source, html_path=target)
+
+            html = target.read_text(encoding="utf-8")
+            self.assertIn("刘豪 - 音视频技术支持专家简历", html)
+            self.assertNotIn("刘豪 - 刘豪 -", html)
+            self.assertNotIn("简历初稿", html)
+            self.assertNotIn("title>刘豪 - 刘豪 -", html)

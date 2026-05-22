@@ -31,6 +31,7 @@ class RendererTests(unittest.TestCase):
 
     def test_render_resume_restores_base_resume_structure(self):
         text = render_resume(self.match_result())
+        self.assertIn("# 刘豪 - AI Agent / AI Coding 方向简历初稿", text)
         self.assertIn("手机：15338866734", text)
         self.assertIn("## 个人定位", text)
         self.assertIn("## 核心优势", text)
@@ -42,6 +43,11 @@ class RendererTests(unittest.TestCase):
         self.assertIn("山东政法学院 - 本科 - 信息工程", text)
         self.assertNotIn("定制说明", text)
         self.assertNotIn("重点匹配项目", text)
+
+    def test_render_resume_does_not_duplicate_prefix_when_title_is_prefixed(self):
+        result = self.match_result()
+        text = render_resume(result)
+        self.assertNotIn("# 刘豪 - 刘豪 -", text)
 
     def test_render_resume_uses_capability_sentences(self):
         text = render_resume(self.match_result())
